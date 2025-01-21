@@ -32,7 +32,7 @@ a {
   font-size: 1vw;
 }
 
-.content {
+.container {
   display: flex;
   gap: 1vw;
   padding: 1vw;
