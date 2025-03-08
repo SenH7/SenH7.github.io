@@ -4,9 +4,9 @@ import os
 header = open('includes/header.html').read()
 footer = open('includes/footer.html').read()
 
-# Ensure the build directory exists
-if not os.path.exists('build'):
-    os.makedirs('build')
+# Ensure the docs directory exists
+if not os.path.exists('docs'):
+    os.makedirs('docs')
 
 # Process each page
 for page in os.listdir('pages'):
@@ -22,6 +22,6 @@ for page in os.listdir('pages'):
             foot_part = content[head_end:]  # Include </body>
             # Combine with header and footer
             full_page = head_part + '\n' + header + '\n' + body_content + '\n' + footer + '\n' + foot_part
-            # Write to the build directory
-            with open(os.path.join('build', page), 'w') as f:
+            # Write to the docs directory
+            with open(os.path.join('docs', page), 'w') as f:
                 f.write(full_page)
