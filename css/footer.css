@@ -1,0 +1,22 @@
+footer {
+    grid-column: 2 / 3;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 30px;
+    padding: 20px 0;
+    border-top: 1px solid #ccc;
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    footer {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Small Screens (Mobile) */
+@media (max-width: 991px) {
+    footer {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+}
