@@ -3,7 +3,7 @@
 Modern, responsive portfolio website showcasing my full-stack development skills and projects.
 
 ## 🚀 Live Demo
-Visit: [https://senh7.github.io/your-repo-name](https://senh7.github.io/your-repo-name)
+Visit: [https://senh7.github.io/SenH7.github.io](https://senh7.github.io/SenH7.github.io)
 
 ## 🛠️ Technologies Used
 - HTML5
