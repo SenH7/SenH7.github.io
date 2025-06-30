@@ -74,10 +74,16 @@ const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
 const navLinks = document.querySelector('.nav-links');
 
 if (mobileMenuToggle) {
-    mobileMenuToggle.addEventListener('click', function() {
+    mobileMenuToggle.addEventListener('click', function(e) {
+        e.stopPropagation();
         this.classList.toggle('active');
         navLinks.classList.toggle('active');
         document.body.classList.toggle('menu-open');
+        
+        // Update ARIA attributes for accessibility
+        const isOpen = navLinks.classList.contains('active');
+        this.setAttribute('aria-expanded', isOpen);
+        navLinks.setAttribute('aria-hidden', !isOpen);
     });
 }
 
@@ -88,8 +94,54 @@ document.querySelectorAll('.nav-links a').forEach(link => {
             mobileMenuToggle.classList.remove('active');
             navLinks.classList.remove('active');
             document.body.classList.remove('menu-open');
+            
+            // Update ARIA attributes
+            mobileMenuToggle.setAttribute('aria-expanded', 'false');
+            navLinks.setAttribute('aria-hidden', 'true');
         }
     });
+});
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', function(e) {
+    if (navLinks.classList.contains('active') && 
+        !navLinks.contains(e.target) && 
+        !mobileMenuToggle.contains(e.target)) {
+        
+        mobileMenuToggle.classList.remove('active');
+        navLinks.classList.remove('active');
+        document.body.classList.remove('menu-open');
+        
+        // Update ARIA attributes
+        mobileMenuToggle.setAttribute('aria-expanded', 'false');
+        navLinks.setAttribute('aria-hidden', 'true');
+    }
+});
+
+// Close mobile menu on escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+        mobileMenuToggle.classList.remove('active');
+        navLinks.classList.remove('active');
+        document.body.classList.remove('menu-open');
+        
+        // Update ARIA attributes
+        mobileMenuToggle.setAttribute('aria-expanded', 'false');
+        navLinks.setAttribute('aria-hidden', 'true');
+    }
+});
+
+// Handle window resize
+window.addEventListener('resize', function() {
+    if (window.innerWidth > 768 && navLinks.classList.contains('active')) {
+        mobileMenuToggle.classList.remove('active');
+        navLinks.classList.remove('active');
+        document.body.classList.remove('menu-open');
+        
+        // Update ARIA attributes
+        mobileMenuToggle.setAttribute('aria-expanded', 'false');
+        navLinks.setAttribute('aria-hidden', 'true');
+    }
 });
 
 // ===== INTERSECTION OBSERVER FOR ANIMATIONS =====
