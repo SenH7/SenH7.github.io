@@ -249,65 +249,30 @@ function validateEmail(email) {
 }
 
 // ===== PERFORMANCE OPTIMIZATION =====
-// Lazy loading for images (if you add more images)
+// Note: Lazy loading images functionality ready for future use
 document.addEventListener('DOMContentLoaded', function() {
     const images = document.querySelectorAll('img[data-src]');
     
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src;
-                img.classList.remove('lazy');
-                observer.unobserve(img);
-            }
+    if (images.length > 0) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    img.classList.remove('lazy');
+                    observer.unobserve(img);
+                }
+            });
         });
-    });
-    
-    images.forEach(img => imageObserver.observe(img));
+        
+        images.forEach(img => imageObserver.observe(img));
+    }
 });
 
 // ===== ERROR HANDLING =====
 window.addEventListener('error', function(e) {
     console.error('JavaScript error:', e.error);
     // You can add error reporting here if needed
-});
-
-// ===== ACCESSIBILITY IMPROVEMENTS =====
-document.addEventListener('DOMContentLoaded', function() {
-    // Add skip to main content link
-    const skipLink = document.createElement('a');
-    skipLink.href = '#main';
-    skipLink.textContent = 'Skip to main content';
-    skipLink.className = 'skip-link';
-    skipLink.style.cssText = `
-        position: absolute;
-        top: -40px;
-        left: 6px;
-        background: var(--primary-color);
-        color: white;
-        padding: 8px;
-        text-decoration: none;
-        border-radius: 4px;
-        z-index: 9999;
-        transition: top 0.3s;
-    `;
-    
-    skipLink.addEventListener('focus', function() {
-        this.style.top = '6px';
-    });
-    
-    skipLink.addEventListener('blur', function() {
-        this.style.top = '-40px';
-    });
-    
-    document.body.insertBefore(skipLink, document.body.firstChild);
-    
-    // Add main landmark
-    const mainElement = document.querySelector('.hero');
-    if (mainElement && !mainElement.id) {
-        mainElement.id = 'main';
-    }
 });
 
 // ===== CONSOLE WELCOME MESSAGE =====
